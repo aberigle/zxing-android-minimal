@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.hardware.Camera;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
@@ -98,8 +99,16 @@ final class CameraConfigurationManager {
       }
 
     }
+      if (Build.DEVICE.equals("glass-1")) {
+          CameraConfigurationUtils.setVideoStabilization(parameters);
+          CameraConfigurationUtils.setMetering(parameters);
+          CameraConfigurationUtils.setBarcodeSceneMode(parameters);
+          CameraConfigurationUtils.setBestPreviewFPS(parameters);
+          CameraConfigurationUtils.setZoom(parameters, 2);
+      }
 
     parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
+
     camera.setParameters(parameters);
 
     Camera.Parameters afterParameters = camera.getParameters();
